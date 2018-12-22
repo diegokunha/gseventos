@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		
+		<div class="header">
+			<div class="container-fluid">
+				<div class="header-body">
+					<div class="row align-items-center">
+						<div class="col ml--3 ml-md--2">
+							<h1 class="header-title">Eventos</h1>
+						</div>
+						<div class="col-12 col-md-auto mt-3 mt-md-0">
+							<a th:href="@{/formEvento}" class="btn btn-lg btn-rounded-circle btn-primary">+</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="table-responsive" data-toggle="lists">
+		  <table class="table table-hover">
+		    <thead class="thead-dark">
+		      <tr>
+		        <th scope="col">ID</th>
+		        <th scope="col">Evento</th>
+		        <th scope="col">Local</th>
+		        <th scope="col">Data</th>
+		        <th scope="col">Horário</th>
+		        <th style="width:100px; min-width:100px;">&nbsp;</th>
+		      </tr>
+		    </thead>
+		    <tbody th:each="evento : ${evento}">
+		      <tr>
+		        <td th:text="${evento.id}" />
+		        <td th:text="${evento.nome}"/>
+		        <td th:text="${evento.local}"/>
+		        <td th:text="${#dates.format(evento.data, 'dd/MM/yyyy')}" />
+		        <td th:text="${evento.horario}" />
+		        <td class="align-middle text-right">
+					<a th:href="@{/editaEvento/{id}(id = ${evento.id})}" class="btn btn-sm btn-secondary" title="Editar">
+						<i class="fas fa-pen" ></i>
+						<span class="sr-only">Editar</span>
+					</a>
+					<a class="btn btn-sm btn-secondary" th:href="@{/excluir/{id}(id = ${evento.id})}" title="Excluir">
+						<i class="far fa-trash-alt" ></i>
+						<span class="sr-only">Remove</span>
+					</a>
+				</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</div>
+	</main>
+</body>
+</html>
